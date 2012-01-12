@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class EventDAO {	
+	
+	private final DataSource ds = DataSource.INSTANCE;
+	
 	public List<TodoEvent> findAll() {
-	    DataSource ds = new DataSource();
 		List<TodoEvent> allEvents = new ArrayList<TodoEvent>();
 		try {
 			// get connection
@@ -43,11 +45,11 @@ public class EventDAO {
 	}
 	
 	public boolean delete(TodoEvent evt) {
-		return execute("delete from event where id = '" + evt.getId() + "'");
+		return execute("delete from event where evtid = '" + evt.getId() + "'");
 	}
 	
 	public boolean insert(TodoEvent evt) {
-		return execute("insert into event(id,name,priority,date) " +
+		return execute("insert into event(evtid,name,priority,evtdate) " +
                     "values ('" + UUID.randomUUID().toString() + "','" + evt.getName() +
                     "'," + evt.getPriority() + ",'" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 		            .format(evt.getDate()) + "')");
@@ -55,14 +57,14 @@ public class EventDAO {
 	
 	public boolean update(TodoEvent evt) {
         return execute("update event set name = '" + evt.getName() + 
-                    "', priority = " + evt.getPriority() + ", date = '" + 
+                    "', priority = " + evt.getPriority() + ", evtdate = '" + 
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(evt.getDate())+ 
-                    "' where id = '" + evt.getId() + "'");
+                    "' where evtid = '" + evt.getId() + "'");
     }
 	
 	private boolean execute(String sql) {
-	    DataSource ds = new DataSource();
-        try {
+
+		try {
             Statement stmt = ds.getStatement();
             stmt.execute(sql);
             if (stmt != null) {
@@ -71,6 +73,7 @@ public class EventDAO {
             
             return true;
         } catch (SQLException e) {
+        	e.printStackTrace();
             return false;
         } finally {
             ds.close();
