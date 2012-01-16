@@ -32,13 +32,11 @@
 			disabled="@load(empty vm.selectedEvent)" />
 		<button id="delete" label="Delete" onClick="@command('delete')"
 			disabled="@load(empty vm.selectedEvent)" />
+
+		<hlayout>
+			<label style="color:red" value="@bind(vmsgs['name'])" />
+			<label style="color:red" value="@bind(vmsgs['priority'])" />
+			<label style="color:red" value="@bind(vmsgs['date'])" />
+		</hlayout>
 	</groupbox>
-	<grid id="msggrid" model="@bind(vmsgs.getMultiple()[mygrp])"
-		visible="@bind(not empty vmsgs.getMultiple()[mygrp])">
-		<template name="model" var="msg">
-			<row>
-				<label value="@load(msg)" style="color:red"/>
-			</row>
-		</template>
-	</grid>
 </window>

@@ -14,16 +14,15 @@ public class EventValidator extends AbstractValidator {
 		List<String> messages = new ArrayList<String>(); 
 		
 		if(name == null || "".equals(name))
-			messages.add("You must enter a name");
+			this.addInvalidMessage(ctx, "name", "You must enter a name");		
 		
 		if(ctx.getProperties("date")[0].getValue() == null)
-			messages.add("You must specify a date");
+			this.addInvalidMessage(ctx, "date", "You must specify a date");
 		
-		if(priority == null || priority < 0 || priority > 10)
-			messages.add("You must give a priority > 0 && < 10");
+		if(priority == null || priority < 1 || priority > 10)
+			this.addInvalidMessage(ctx, "priority", "You must give a priority > 0 && < 10");
 		
 		if(messages.size() > 0)
 			this.addInvalidMessages(ctx, messages.toArray(new String[0]));
 	}
-
 }
