@@ -47,11 +47,13 @@ public class EventViewModel {
 	}
 	
 	@Command("delete")
-	@NotifyChange("events")
+	@NotifyChange({"events", "selectedEvent"})
 	public void delete() {
 		//shouldn't be able to delete with selectedEvent being null anyway
 		//unless trying to hack the system, so just ignore the request
-		if(this.selectedEvent != null)
+		if(this.selectedEvent != null) {
 			eventDao.delete(this.selectedEvent);
+			this.selectedEvent = null;
+		}
 	}
 }

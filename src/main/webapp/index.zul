@@ -34,9 +34,9 @@
 			disabled="@load(empty vm.selectedEvent)" />
 
 		<hlayout>
-			<label style="color:red" value="@bind(vmsgs['name'])" />
-			<label style="color:red" value="@bind(vmsgs['priority'])" />
-			<label style="color:red" value="@bind(vmsgs['date'])" />
+			<label style="color:red" value="@load(vmsgs['name'])" />
+			<label style="color:red" value="@load(vmsgs['priority'])" />
+			<label style="color:red" value="@load(vmsgs['date'])" />
 		</hlayout>
 	</groupbox>
 </window>
